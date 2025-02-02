@@ -1,0 +1,217 @@
+/* Estilo general */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #daace4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo del header */
+.franjanegra {
+    width: 100%;
+    display: flex; /* Convierte el contenedor en un layout flex */
+    align-items: center;
+}
+
+.wrapper{
+    width: 80%;
+    display: flex; /* Convierte el contenedor en un layout flex */
+    justify-content: end;
+}
+
+@media (max-width:800px){
+    .wrapper{
+        flex-direction: column;
+        align-items: center;
+    }
+    .franjanegra {
+        flex-direction: column;
+    }
+  }
+
+.icon{
+    color:rgb(133, 16, 179);
+    margin: 0px 4px 0px 4px;
+  }
+
+.contacitem {
+    width: 23px;
+    padding: 0px 10px 0px 10px;
+    cursor: hand;
+}
+.contacitem:hover{
+    color:grey;
+  }
+
+
+header {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    width: 100%;
+    position: fixed;
+}
+
+header h1 {
+    flex-grow: 1;
+    text-align: center;
+}
+
+
+/* Carrito */
+.cerrar-carrito{
+    float: right;
+}
+#carrito {
+    background-color: #daace4;
+    border: 1px solid #a998aa;
+    padding: 5px; 
+    margin-top: 3px;
+    width: auto; 
+    height: auto; 
+    border-radius: 2px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    box-sizing: border-box; 
+    line-height: 1.2; 
+    color: rgb(17, 16, 16); 
+    padding: 20px;
+    width: 300px;
+    box-sizing: border-box;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#carrito h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+#carrito-container {
+    margin-bottom: 20px;
+}
+
+#total {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #4c1053;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #4c1053;
+}
+
+#vaciar-carrito {
+    background-color: #434044;
+}
+
+#vaciar-carrito:hover {
+    background-color: #434044;
+}
+
+/* Ocultar carrito */
+.oculto {
+    display: none;
+}
+
+/* Estilo de los productos */
+#bookList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    width: 80%;
+    padding: 20px;
+    padding-top: 150px; 
+    margin: 0 auto; 
+}
+  
+#bookList .book-item{
+    display: flex;
+    flex-direction: column;
+    background: #f0f0f0;
+    padding: 0px 10px 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    height: 100%;
+
+}
+.book-item h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.book-item .author {
+    font-weight: bold;
+    text-align: center;
+}
+
+.book-item .imagen {
+    height: 250px;
+    text-align: center;
+}
+
+.book-item img {
+    height: 100%;
+
+}
+
+.book-item p {
+    overflow: hidden; /* Oculta el contenido que se desborda */
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    font-size:small;
+    color: #555;
+    text-align:justify;
+}
+
+.book-item button {
+    background-color: #4c1053;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+    width: 120px;
+    margin: 0 auto;
+}
+
+.book-item button:hover {
+    background-color: #333;
+}
+
+/* Estilo para el pie de página */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<head>
+    <title>LibreriaY.</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="franjanegra">
+            <h1>LibreriaY.</h1>
+            <div class="wrapper">          
+                <div class="contacitem">
+                    <i class="icon fas fa-home"></i> 
+                </div> 
+                <div class="contacitem"> 
+                    <i class="icon fas fa-user"></i> 
+                </div>
+                <div class="contacitem"> 
+                    <i class="icon fas fa-phone"></i>  
+                </div>
+                <div id="toggle-carrito" class="contacitem"> 
+                    <i class="icon fas fa-cart-shopping"></i>  
+                </div>
+        
+            </div>
+        </div>
+        
+    </header>
+    <main>
+        <!-- Sección donde se mostrarán los productos -->
+        <div id="bookList"></div>
+        <script src="js/data.js"></script>
+        <script src="js/script.js"></script>  
+
+        <!-- Sección del carrito de compras -->
+        <div id="carrito" class="oculto">
+            <div id="cerrar-carrito" class="cerrar-carrito"> 
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <p>Lo que me llevo:</p>
+            <!-- Aquí se poen dinámico los productos del carrito -->
+            <div id="carrito-container"></div>
+            <!-- Muestra total del carrito -->
+            <p id="total">Total: €0</p>
+            <!-- Botones para vaciar el carrito y realizar la compra -->
+            <button id="vaciar-carrito">Vaciar Carrito</button>
+            <button id="comprar">Comprar</button>
+        
+        </div>
+    </main>
+   
+</body>
+<footer>
+    <p>&copy; 2025 Tienda de Libros</p>
+</footer>
+</html>
