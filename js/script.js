@@ -6,12 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const carritoContainer = document.getElementById('carrito-container');
     const toggleCarritoBtn = document.getElementById('toggle-carrito');
     const toggleCerrarCarritoBtn = document.getElementById('cerrar-carrito');
-    const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
-    
+    const vaciarCarritoBtn = document.getElementById('vaciar-carrito');    
     const mensajeNoStock = "Ups! Parece que no queda stock del producto ";
+    const searchInput = document.getElementById('search-input');
+    const comprar = document.getElementById('comprar');
 
     let carritoProductos = []; // Array para almacenar los productos en el carrito
     let stockDisponible = {}; // Objeto para manejar el stock de cada libro
+   
 
     // Mostrar los libros en la página
     books.forEach(book => {
@@ -20,8 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Crear el contenedor del libro
         const bookItem = document.createElement('div');
+        bookItem.id= book.name;
         bookItem.classList.add('book-item');
-        
+         
         // Título del libro
         const title = document.createElement('h2');
         title.textContent = book.name;
@@ -46,16 +49,18 @@ document.addEventListener('DOMContentLoaded', function() {
         // Descripción del libro
         const description = document.createElement('p');
         description.textContent = book.description;
+        description.classList.add('description');
         bookItem.appendChild(description);
         
         // Precio del libro
         const price = document.createElement('p');
-        price.textContent = `Precio: ${book.price.toFixed(2)}€`;
+        price.textContent = `${book.price.toFixed(2)}€`;
+        price.classList.add('price');
         bookItem.appendChild(price);
         
         // Stock del libro
         const stock = document.createElement('p');
-        stock.id = book.name;
+        stock.id =  `stock'-${book.name}`;
         stock.textContent = `Unidades disponibles: ${stockDisponible[book.name]}`;
         bookItem.appendChild(stock);
         
@@ -126,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     function actualizarStockLibro(book) {
-        let stockElement = document.getElementById(book.name);
+        let stockElement = document.getElementById(`stock'-${book.name}`);
         stockElement.textContent = `Unidades disponibles: ${stockDisponible[book.name]}`;
     }
 
@@ -139,13 +144,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const itemCarrito = document.createElement('div'); // Contenedor del producto
             itemCarrito.classList.add('item-carrito');
             
-            const nombre = document.createElement('p');
+            const nombre = document.createElement('div');
             nombre.textContent = `${producto.name} ${producto.price.toFixed(2)}€ (x${producto.cantidad})`;
+            nombre.classList.add('column-name');
             itemCarrito.appendChild(nombre);
             
             const botonEliminar = document.createElement('i');
             botonEliminar.classList.add('fas');
             botonEliminar.classList.add('fa-trash');
+            botonEliminar.classList.add('buttonshop')
             botonEliminar.addEventListener('click',() => quitarProductoDelCarrito(producto))
             itemCarrito.appendChild(botonEliminar);
 
@@ -153,17 +160,19 @@ document.addEventListener('DOMContentLoaded', function() {
             botonMas.id = `plus-${producto.name}`;
             botonMas.classList.add('fas');
             botonMas.classList.add('fa-plus');
+            botonMas.classList.add('buttonshop')
             botonMas.addEventListener('click',() => sumarProductoDelCarrito(producto))
             itemCarrito.appendChild(botonMas);
 
             const botonMenos = document.createElement('i');
             botonMenos.classList.add('fas');
             botonMenos.classList.add('fa-minus');
+            botonMenos.classList.add('buttonshop');
             botonMenos.addEventListener('click',() => quitarDelCarrito(producto))
             itemCarrito.appendChild(botonMenos);
 
             
-            const precio = document.createElement('p');
+            const precio = document.createElement('div');
             precio.textContent = `${(producto.price * producto.cantidad).toFixed(2)}€`;
             itemCarrito.appendChild(precio);
             
@@ -192,6 +201,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     toggleCerrarCarritoBtn.addEventListener('click', () => {
+        carrito.classList.add('oculto');
+    });
+
+    searchInput.addEventListener('keyup',(event) =>{
+       let textoafiltrar= searchInput.value;
+        books.forEach(book => {
+        if(book.name.toLowerCase().includes(textoafiltrar.toLowerCase()) ||
+            book.author.toLowerCase().includes(textoafiltrar.toLowerCase())){
+            document.getElementById(book.name).classList.remove('oculto');
+        } else {
+            document.getElementById(book.name).classList.add('oculto');
+        }
+        })
+    });
+
+    comprar.addEventListener('click', () => {
+        alert('Has hecho una compra!');
+        carritoProductos = []; // Vaciar el array del carrito
+        actualizarCarrito(); // Actualizar la vista
         carrito.classList.add('oculto');
     });
 });
