@@ -1,15 +1,3 @@
-/* Estilo general */
-body {
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #c3bdc5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 50px;
-}
-
 /* Estilo del header */
 .franjanegra {
     width: 100%;
@@ -37,7 +25,8 @@ body {
 
 .logo{
     width: 100px;
-    }
+}
+
 .logo img{
     width: 100%;
 }
@@ -52,17 +41,18 @@ body {
        flex-direction: column;
     }
 }
+
 .menu {
     display:flex;
     flex-direction: row;
     align-items: center;
 }
 
-
 .icon{
     color:#e24bf2dc;
     margin: 0px 4px 0px 4px;
 }
+
 .search-container {
     text-align: center;
     width: 250px;
@@ -77,6 +67,7 @@ body {
        margin-top: 10px;
     }
 }
+
 #search-input {
     padding: 10px;
     border-radius: 5px;
@@ -89,15 +80,12 @@ body {
 #search-input:focus {
     border-color: #e24bf2dc;
 }
+
 .contacitem {
     width: 23px;
     padding: 0px 10px 0px 10px;
     cursor: grab;
 }
-.contacitem:hover{
-    color:grey;
-}
-
 
 header {
     background-color: #434044;
@@ -117,11 +105,21 @@ header h1 {
     text-align: center;
 }
 
-
-/* Carrito */
-.cerrar-carrito{
-    float: right;
+/* Estilo general */
+body {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #c3bdc5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
 }
+
+/* Estilo de carrito */
+
+/* Estilo de contenedor de carrito*/
 #carrito {
     background-color: #c3bdc5;
     border: 1px solid #a998aa;
@@ -153,21 +151,29 @@ header h1 {
         width: 80%;
     }}
 
-
-#carrito h2 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+/* Boton cerrar carrito*/
+.cerrar-carrito{
+    float: right;
 }
+
 
 #carrito-container {
     margin-bottom: 20px;
 }
 
+/* Titulo de carrito */
+#carrito h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+/* Total de carrito*/
 #total {
     font-size: 1.5rem;
     margin-bottom: 20px;
 }
 
+/* Botones inferiores de carrito*/
 button {
     background-color: #e24bf2dc;
     color: white;
@@ -186,10 +192,7 @@ button:hover {
     background-color: #434044;
 }
 
-#vaciar-carrito:hover {
-    background-color: #434044;
-}
-
+/* Elementos del carrito*/
 .item-carrito{
 display: flex;
 flex-direction: row;
@@ -197,14 +200,15 @@ justify-content: space-between;
 }
 .item-carrito .column-name{
     width: 285px;
-    }
+}
 
 /* Ocultar carrito */
 .oculto {
     display: none !important;
 }
 
-/* Estilo de los productos */
+
+/* Estilo de contenedor de tarjetas */
 #bookList {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -214,7 +218,15 @@ justify-content: space-between;
     padding-top: 150px; 
     margin: 0 auto; 
 }
-  
+
+@media (max-width:800px){ 
+    #bookList {
+        padding-top: 285px;
+    }
+}
+
+/* Estilos de tarjeta*/
+
 #bookList .book-item{
     display: flex;
     flex-direction: column;
@@ -232,22 +244,20 @@ justify-content: space-between;
     text-align: center;
     color: white;
 }
-
 .book-item .author {
     font-weight: bold;
     text-align: center;
 }
-
 .book-item .imagen {
     height: 250px;
     text-align: center;
 }
-
 .book-item img {
     height: 100%;
-
 }
-
+.description{
+    height:75px;
+}
 .book-item p {
     overflow: hidden; /* Oculta el contenido que se desborda */
     display: -webkit-box;
@@ -259,14 +269,9 @@ justify-content: space-between;
     margin:15;
 }
 
-.description{
-    height:75px;
-}
-
 .price {
     margin: 0 auto;
 }
-
 .book-item button {
     background-color: #e24bf2dc;
     color: white;
@@ -278,7 +283,6 @@ justify-content: space-between;
     width: 120px;
     margin: 0 auto;
 }
-
 .book-item button:hover {
     background-color: #333;
 }

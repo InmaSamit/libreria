@@ -1,15 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() { 
     // Obtener referencias a los elementos del DOM
-    const bookList = document.getElementById('bookList');  
+    const bookList = document.getElementById('bookList');
+
+    /* Carrito (para mostrar/ocultar)*/
     const carrito = document.getElementById('carrito');
+
+    /* Elemento que muestra el total en el carrito*/
     const totalElement = document.getElementById('total');
+
+    /* Carrito (para añadir items) */
     const carritoContainer = document.getElementById('carrito-container');
+
+    /* Boton de icono de carrito */
     const toggleCarritoBtn = document.getElementById('toggle-carrito');
+    /* Boton de cerrar carrito*/
     const toggleCerrarCarritoBtn = document.getElementById('cerrar-carrito');
+    /* Boton de vaciar carrito*/
     const vaciarCarritoBtn = document.getElementById('vaciar-carrito');    
-    const mensajeNoStock = "Ups! Parece que no queda stock del producto ";
-    const searchInput = document.getElementById('search-input');
+    /* Boton de comprar*/
     const comprar = document.getElementById('comprar');
+
+    /* Buscador de libros*/
+    const searchInput = document.getElementById('search-input');
+
+    /* Mensaje para cuando no hay stock*/
+    const mensajeNoStock = "Ups! Parece que no queda stock del producto ";
 
     let carritoProductos = []; // Array para almacenar los productos en el carrito
     let stockDisponible = {}; // Objeto para manejar el stock de cada libro
@@ -39,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Imagen del libro
         const imageDiv = document.createElement('div');
         imageDiv.classList.add('imagen');
-
         const image = document.createElement('img');
         image.src = book.images;
         image.alt = book.name;
@@ -76,16 +90,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Función para agregar un libro al carrito
     function agregarAlCarrito(book, ) {
-        if (stockDisponible[book.name] > 0) { // Verifica que haya stock disponible
+        //Si hay stock disponible
+        if (stockDisponible[book.name] > 0) { 
+            //comprobamos si el producto está en el carrito
             let productoEnCarrito = carritoProductos.find(p => p.name === book.name);
-            if (productoEnCarrito) {
-                productoEnCarrito.cantidad++; // Aumenta la cantidad si ya está en el carrito
+            if (productoEnCarrito) { //si está se aumenta la cantidad del carrito
+                productoEnCarrito.cantidad++;
             } else {
-                carritoProductos.push({ ...book, cantidad: 1 }); // Agrega el libro con cantidad 1
+                carritoProductos.push({ ...book, cantidad: 1 }); //si no está se añade inicializando en 1
             }
             
             stockDisponible[book.name]--; // Reduce el stock disponible
-            actualizarStockLibro(book);
+            actualizarStockLibro(book); 
             
             actualizarCarrito(); // Actualiza la vista del carrito
         } else {
@@ -93,45 +109,49 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    function quitarDelCarrito(book) {
+    function restarProductoDelCarrito(book) {
+        //Buscamos en el carrito el producto al que se quiere restar un unaidad
         let productoEnCarrito = carritoProductos.find(p => p.name === book.name);
-        if (productoEnCarrito.cantidad > 1) {
-            productoEnCarrito.cantidad--;
-            stockDisponible[book.name]++;
-            actualizarStockLibro(book);
-            actualizarCarrito(); // Actualiza la vista del carrito
+        if (productoEnCarrito.cantidad > 1) { // si tenemos más de uno en el carrito
+            productoEnCarrito.cantidad--; //restamos uno 
+            stockDisponible[book.name]++; //vuelve al stock
+            actualizarStockLibro(book); //actualizamos el stocko
+            actualizarCarrito(); // Actualiza el carrito
         } else {
-            quitarProductoDelCarrito(book);
+            quitarProductoDelCarrito(book);// si no quitamos todo el produto (como si pulsamos basura)
         }
     }
 
     function sumarProductoDelCarrito(book) {
-        
+        //Buscamos en el carrito el producto
         let productoEnCarrito = carritoProductos.find(p => p.name === book.name);
-        if (productoEnCarrito.stock > productoEnCarrito.cantidad) {
-            productoEnCarrito.cantidad++;
-            stockDisponible[book.name]--;
-            actualizarStockLibro(book);
-            actualizarCarrito();
+        if (productoEnCarrito.stock > productoEnCarrito.cantidad) { //si el hya más stock q producto
+            productoEnCarrito.cantidad++; // se añade al carrito
+            stockDisponible[book.name]--; //se quita del stock
+            actualizarStockLibro(book); //actualizamos el stock
+            actualizarCarrito();    // actializamos carrito
         } else {
-            alert(mensajeNoStock);
+            alert(mensajeNoStock); //Si no hay stock avisamos (qué menos)
         }
     }
 
-
     function quitarProductoDelCarrito(book) {
+        //Buscamos en el carrito el producto
         let productoEnCarrito = carritoProductos.find(p => p.name === book.name);
-        stockDisponible[book.name] = stockDisponible[book.name] + productoEnCarrito.cantidad;
-
+        //Devolvemos al stcok todas las unidades del carrito 
+        stockDisponible[book.name] += productoEnCarrito.cantidad;
+        //Actualiamos el carrito quitando el producto elimnado
         carritoProductos = carritoProductos.filter(p => p.name !== book.name);
 
-        actualizarStockLibro(book);
+        actualizarStockLibro(book); //actualizamos stock
         actualizarCarrito(); // Actualiza la vista del carrito
     }
 
 
     function actualizarStockLibro(book) {
+        //buscamos el elemnto q muestra el stcok (en html)
         let stockElement = document.getElementById(`stock'-${book.name}`);
+        //reemplazmos el texo con el nuevo stcok
         stockElement.textContent = `Unidades disponibles: ${stockDisponible[book.name]}`;
     }
 
@@ -168,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
             botonMenos.classList.add('fas');
             botonMenos.classList.add('fa-minus');
             botonMenos.classList.add('buttonshop');
-            botonMenos.addEventListener('click',() => quitarDelCarrito(producto))
+            botonMenos.addEventListener('click',() => restarProductoDelCarrito(producto))
             itemCarrito.appendChild(botonMenos);
 
             
@@ -185,32 +205,37 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Función para vaciar el carrito
-    vaciarCarritoBtn.addEventListener('click', () => {  
+    vaciarCarritoBtn.addEventListener('click', () => { 
+        //recorremos los prodictos para devolver el stock y actualiza la tarjtea 
         carritoProductos.forEach(producto => {
             stockDisponible[producto.name] += producto.cantidad; // Devolver el stock
             actualizarStockLibro(producto);
         });
         
         carritoProductos = []; // Vaciar el array del carrito
-        actualizarCarrito(); // Actualizar la vista
+        actualizarCarrito(); // Actualizar el carrito
     });
 
     // Función para mostrar/ocultar el carrito
     toggleCarritoBtn.addEventListener('click', () => {
-        carrito.classList.toggle('oculto'); // Mostrar u ocultar el carrito
+        carrito.classList.toggle('oculto'); 
     });
-
     toggleCerrarCarritoBtn.addEventListener('click', () => {
         carrito.classList.add('oculto');
     });
 
+    //filtro buscador cada vez que se despulsa una tecla
     searchInput.addEventListener('keyup',(event) =>{
+        //obtenems el texto que se ha escrito
        let textoafiltrar= searchInput.value;
+       //recorremos todos los productos
         books.forEach(book => {
-        if(book.name.toLowerCase().includes(textoafiltrar.toLowerCase()) ||
+        // si el titulo o autor contiene el texto a filtar se muestra quitando la clase ocualta(sila tiene)
+        if(book.name.toLowerCase().includes(textoafiltrar.toLowerCase()) || 
             book.author.toLowerCase().includes(textoafiltrar.toLowerCase())){
             document.getElementById(book.name).classList.remove('oculto');
-        } else {
+        } // si no contiene el texto se añade la clase oculta
+        else {
             document.getElementById(book.name).classList.add('oculto');
         }
         })
@@ -219,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
     comprar.addEventListener('click', () => {
         alert('Has hecho una compra!');
         carritoProductos = []; // Vaciar el array del carrito
-        actualizarCarrito(); // Actualizar la vista
+        actualizarCarrito(); // Actualizar carrito y a tener en cuenta sin devolver el stock porque es una compra
         carrito.classList.add('oculto');
     });
 });
